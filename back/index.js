@@ -61,4 +61,12 @@ app.post('/superheroes',(req,res)=>{/* agregamos un heroe*/
         res.status(200).send({product:pro})
     })
 });
+app.put('/superheroes/:id',(req,res)=>{/* modificamos un heroe segun id*/
+    let id = req.params.id;
+    let upDate = req.body;
+    Product.findByIdAndUpdate(id,upDate,(err,pro)=>{
+        if(err) return res.status(500).send({message:`Error al actualizar el heroe: ${err}`});
+        res.status(200).send({id:pro});
+    })
+});
 
