@@ -22,3 +22,6 @@ mongoose.connect(uri,/* metodo de coneccion */
     console.log(`escuchando en el puerto ${port}`);
 })
 )
+/* promesa */
+.then(()=>console.log('Base de datos conectada'))
+.catch(e=>console.log(e));
