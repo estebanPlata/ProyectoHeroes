@@ -46,4 +46,19 @@ app.get('/superheroes/:id',(req,res)=>{/* accedemos al id del heroe*/
         res.status(200).send({id:pro});
     });
 });
+app.post('/superheroes',(req,res)=>{/* agregamos un heroe*/    
+    let product = new Product();
+    product.name = req.body.name;
+    product.category = req.body.category;
+    product.city = req.body.city;
+    product.status = req.body.status;
+    product.typesOfPower = req.body.typesOfPower;
+    product.car = req.body.car;
+    product.kindOfCar = req.body.kindOfCar;
+
+    product.save((err,pro)=>{
+        if(err) return res.status(500).send({message:`Error al salvar en base de datos: ${err}`})
+        res.status(200).send({product:pro})
+    })
+});
 
