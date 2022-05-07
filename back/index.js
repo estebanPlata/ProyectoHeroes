@@ -69,4 +69,14 @@ app.put('/superheroes/:id',(req,res)=>{/* modificamos un heroe segun id*/
         res.status(200).send({id:pro});
     })
 });
+app.delete('/superheroes/:id',(req,res)=>{/* borramos un heroe segun id*/
+    let id = req.params.id;/* id contiene el parametro de id  */
+    Product.findById(id,(err,pro)=>{/* funcion para biscar id */
+    if(err) return res.status(500).send({message:`Error al realizar la petición en la base de datos: ${err}`});
+    pro.remove(err=>{
+        if(err) return res.status(500).send({message:`Error al realizar la petición en la base de datos: ${err}`});
+        res.status(200).send({message: 'Super Heroe eliminado'});
+        })
+    })
+});
 
