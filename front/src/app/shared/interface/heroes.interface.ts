@@ -5,5 +5,5 @@ export interface  Heroes{
   status:String;
   car:boolean;
   kindOfCar:string;
-  typesOfPower:String
+  typesOfPower:any;
 }
