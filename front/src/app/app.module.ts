@@ -5,18 +5,17 @@ import {HttpClientModule} from '@angular/common/http'
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { DataService } from './shared/services/data.service';
-import {ReactiveFormsModule, FormsModule} from '@angular/forms'
+
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    ReactiveFormsModule,
-    FormsModule
   ],
   providers: [DataService],
   bootstrap: [AppComponent]
