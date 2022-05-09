@@ -43,8 +43,24 @@ export class MainComponent implements OnInit {
   }
   saveHeroe(){
     let data={
-      title: this
-    }
+      name: this.heroe.name,
+      category: this.heroe.category,
+      city: this.heroe.city,
+      status: this.heroe.status,
+      typesOfPower: this.heroe.typesOfPower,
+      car: this.heroe.car,
+      kindOfCar: this.heroe.kindOfCar
+    };
+    this.dataHeroes.postData(data).subscribe((res: any)=>{
+      this.getData();
+      alert('Heroe guardado exitosamente')
+    })
+  }
+  deleteState(item: any) {
+    this.dataHeroes.deleteDate(item).subscribe(() => {
+      this.getData();
+      alert('dato eliminado');
+    });
   }
 
 }

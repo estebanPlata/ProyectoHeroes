@@ -145,7 +145,23 @@
       <tbody>
         <tr *ngFor="let item of dataHeroes; let indice = index ">
           <th scope="row">{{ indice + 1 }}</th>
-          <td>{{ item.title }}</td>
+          <td>{{ item.name }}</td>
+          <td>{{ item.category }}</td>
+          <td>{{ item.city }}</td>
+          <td>{{ item.status }}</td>
+          <td>{{ item.typesOfPower }}</td>
+          <td>{{ item.car }}</td>
+          <td>{{ item.kinfOfCar }}</td>
+          <td>
+            <button class="btn btn-danger btn-sm" (click)="deleteState(item)">
+              Eliminar
+            </button>
+          </td>
+          <td>
+            <button class="btn btn-warning btn-sm" (click)="deleteState(item)">
+              modificar
+            </button>
+          </td>
         </tr>
       </tbody>
     </table>
