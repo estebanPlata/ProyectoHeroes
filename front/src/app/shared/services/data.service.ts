@@ -5,7 +5,7 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root',
 })
 export class DataService {
-  endPoint:string = "http://localhost:4000/superheroes/";
+  endPoint:string = "http://localhost:4000/superheroes";
   constructor(private http: HttpClient) {}
   getData() {
     return this.http.get(this.endPoint);

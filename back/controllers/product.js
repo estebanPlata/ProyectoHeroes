@@ -8,7 +8,8 @@ function getProducts(req,res){
     Product.find({},(err,heroes)=>{
         if(err) return res.status(500).send({message: `Error al realizar la petición en la base de datos: ${err}`});
         if(!heroes) return res.status(404).send({message: `Super heroe no encontrado`});
-        res.status(200).send({heroes});
+        console.log(heroes);
+        res.status(200).send(heroes);
     })
 }
 function getProduct(req,res){

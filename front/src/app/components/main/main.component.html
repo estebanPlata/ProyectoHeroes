@@ -1,13 +1,13 @@
-<main class="container-fluid ">
-  <div class="container py-3 px-5 bg-info ">
-    <form #heroesForm="ngForm"(ngSubmit)="saveHeroe()">
+<main class="container-fluid">
+  <div class="container py-3 px-5 bg-info">
+    <form #heroesForm="ngForm" (ngSubmit)="saveHeroe()">
       <div class="row d-flex flex-column">
-        <div class="col-md-12 d-lg-flex ">
+        <div class="col-md-12 d-lg-flex">
           <div class="col-md-6 form-group mb-3 main-container">
             <span class="px-1 text-white">Nombre:</span>
             <input
               type="text"
-              class="form-control "
+              class="form-control"
               id="hName"
               [(ngModel)]="heroe.name"
               name="heroe"
@@ -23,52 +23,62 @@
               id="hCategory"
               [(ngModel)]="heroe.category"
               name="category"
-            
               placeholder="Ingrese Categoria"
             />
           </div>
         </div>
-        <div class="col-md-12 d-lg-flex ">
-          <div class="col-md-6 form-group mb-3 ">
+        <div class="col-md-12 d-lg-flex">
+          <div class="col-md-6 form-group mb-3">
             <span class="px-1 text-white">Ciudad:</span>
             <input
               type="text"
-              class="form-control "
+              class="form-control"
               id="hCity"
               [(ngModel)]="heroe.city"
               name="city"
-
               placeholder="Ingrese ciudad..."
             />
           </div>
-          <div class="col-md-6 form-group mb-3 ">
+          <div class="col-md-6 form-group mb-3">
             <span class="px-1 text-white">Estado:</span>
             <input
               type="text"
-              class="form-control "
+              class="form-control"
               id="hState"
               [(ngModel)]="heroe.status"
               name="state"
-
               placeholder="Ingrese estado..."
             />
           </div>
         </div>
-        <div class="col-md-12 d-lg-flex ">
-          <div class="col-md-6 form-group mb-3 ">
+        <div class="col-md-12 d-lg-flex">
+          <div class="col-md-6 form-group mb-3">
             <span class="px-1 text-white">Tipos de poderes:</span>
-            <input
+            <div *ngFor="let word2 of words2; let in = index">
+              <!-- <input
               type="text"
-              class="form-control "
+              class="form-control"
               id="hSTypesOfPower"
               [(ngModel)]="heroe.typesOfPower"
               name="typesOfPower"
-
               placeholder="Ingrese tipos de poder..."
-            />
+            />-->
+              <input
+                type="text"
+                [(ngModel)]="words2[in].value"
+                name="name{{ in }}"
+                placeholder="Agregue url video"
+                class="form-control numero"
+                #name="ngModel"
+                required
+              />
+            </div>
+            <button type="button" value="Agregar video" (click)="add()">
+              Agregar poder
+            </button>
           </div>
-          <div class="col-md-6 form-group mb-3 ">
-            <div class=" col-md-12 d-flex">
+          <div class="col-md-6 form-group mb-3">
+            <div class="col-md-12 d-flex">
               <span class="px-1 text-white">Vehiculo:</span>
               <div class="form-check borders1 col-3">
                 <input
@@ -82,11 +92,10 @@
             </div>
             <input
               type="text"
-              class="form-control "
+              class="form-control"
               id="hCar"
               [(ngModel)]="heroe.kindOfCar"
               name="car"
-
               placeholder="Ingrese vehiculo"
             />
           </div>
@@ -99,10 +108,10 @@
           class="btn-save-item"
           [disabled]="!heroesForm.valid"
         >
-          <span class="iconify mr-2" data-icon="carbon:add"></span>REGISTRAR HEROE
+          <span class="iconify mr-2" data-icon="carbon:add" ></span>REGISTRAR
+          HEROE
         </button>
       </div>
-
     </form>
   </div>
 
@@ -140,25 +149,48 @@
           <th scope="col">Tipos de poder</th>
           <th scope="col">Vehiculo</th>
           <th scope="col">Tipo de vehiculo</th>
+          <!-- <th scope="col">Acción</th> -->
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let item of dataHeroes; let indice = index ">
-          <th scope="row">{{ indice + 1 }}</th>
-          <td>{{ item.name }}</td>
-          <td>{{ item.category }}</td>
-          <td>{{ item.city }}</td>
-          <td>{{ item.status }}</td>
-          <td>{{ item.typesOfPower }}</td>
-          <td>{{ item.car }}</td>
-          <td>{{ item.kinfOfCar }}</td>
+        <tr *ngFor="let item of dataHeroes; let indice = index">
+          <th>
+            {{ indice + 1 }}
+          </th>
           <td>
-            <button class="btn btn-danger btn-sm" (click)="deleteState(item)">
-              Eliminar
-            </button>
+            {{ item.name }}
           </td>
           <td>
-            <button class="btn btn-warning btn-sm" (click)="deleteState(item)">
+            {{ item.category }}
+          </td>
+          <td>
+            {{ item.city }}
+          </td>
+          <td>
+            {{ item.status }}
+          </td>
+          <td>
+            {{ item.car }}
+          </td>
+          <td>
+            {{ item.kinfOfCar }}
+          </td>
+          <!-- <td *ngFor="let dat of item.typesOfPower">
+            {{ dat }}
+          </td> -->
+          <!-- <td *ngFor="let dat of item.heroes">{{ dat.name }}</td>
+          <td *ngFor="let dat of item.heroes">{{ dat.category }}</td>
+          <td *ngFor="let dat of item.heroes">{{ dat.city }}</td>
+          <td *ngFor="let dat of item.heroes">{{ dat.status }}</td>
+          <td *ngFor="let dat of item.heroes">{{ dat.typesOfPower }}</td>
+          <td *ngFor="let dat of item.heroes">{{ dat.car }}</td>
+          <td *ngFor="let dat of item.heroes">{{ dat.kinfOfCar }}</td>
+          <td *ngFor="let dat of item.heroes">{{ dat.kinfOfCar }}</td>-->
+          <td *ngFor="let dat of item.heroes">
+            <button class="btn btn-danger btn-sm" (click)="deleteState(dat)">
+              Eliminar
+            </button>
+            <button class="btn btn-warning btn-sm" (click)="deleteState(dat)">
               modificar
             </button>
           </td>
@@ -167,4 +199,3 @@
     </table>
   </div>
 </main>
-
