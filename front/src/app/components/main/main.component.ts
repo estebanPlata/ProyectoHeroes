@@ -51,13 +51,13 @@ export class MainComponent implements OnInit {
       car: this.heroe.car,
       kindOfCar: this.heroe.kindOfCar
     };
-    this.dataHeroes.postData(data).subscribe((res: any)=>{
+    this.dataService.postData(data).subscribe((res: any)=>{
       this.getData();
       alert('Heroe guardado exitosamente')
     })
   }
   deleteState(item: any) {
-    this.dataHeroes.deleteDate(item).subscribe(() => {
+    this.dataService.deleteDate(item).subscribe(() => {
       this.getData();
       alert('dato eliminado');
     });
