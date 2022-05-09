@@ -10,7 +10,6 @@ import { DataService } from './shared/services/data.service';
 @NgModule({
   declarations: [
     AppComponent,
-
   ],
   imports: [
     BrowserModule,

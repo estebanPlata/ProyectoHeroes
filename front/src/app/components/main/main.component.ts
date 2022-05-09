@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from 'src/app/shared/services/data.service';
 /* import {Heroes} from '../../shared/interface/heroes.interface' */
+import Swal from 'sweetalert2';
 
 export interface Heroe {
   name: string;
@@ -30,22 +31,43 @@ export class MainComponent implements OnInit {
   };
   searchValue: any;
 
-  words2 = [{ value: '' }, { value: '' }];
+  valueFormUpdate: any = {
+    id: '',
+    name: '',
+    category: '',
+    city: '',
+    status: '',
+    typesOfPower: '',
+    car: false,
+    kindOfCar: '',
+  };
+  arrayValue: any;
+
+  words2 = [{ value: '' }];
+
+  pokemonSearch: any;
 
   constructor(private dataService: DataService) {}
+
   ngOnInit(): void {
     this.getData();
   }
 
+  // agregar campo para agregrar poder
   add() {
     this.words2.push({ value: '' });
   }
 
+  // trae todo
   getData() {
     this.dataService.getData().subscribe((res) => {
+      console.log(res);
+
       this.dataHeroes = res;
     });
   }
+
+  // guardar heroe
   saveHeroe() {
     let lstNumero: any = document.getElementsByClassName('numero'),
       arrayGuardar = [];
@@ -68,10 +90,52 @@ export class MainComponent implements OnInit {
       alert('Heroe guardado exitosamente');
     });
   }
-  deleteState(item: any) {
-    this.dataService.deleteDate(item).subscribe(() => {
+
+  // secciona item por id
+  selectItemById(value: any) {
+    this.arrayValue = value.typesOfPower;
+    this.valueFormUpdate = {
+      id: value._id,
+      name: value.name,
+      category: value.category,
+      city: value.city,
+      status: value.status,
+      typesOfPower: value.typesOfPower,
+      car: value.car,
+      kindOfCar: value.kindOfCar,
+    };
+  }
+
+  // actualiza heroe
+  updateState() {
+    let lstNumero: any = document.getElementsByClassName('numero2'),
+      arrayGuardar = [];
+    for (var i = 0; i < lstNumero.length; i++) {
+      arrayGuardar[i] = lstNumero[i].value;
+    }
+    let data = {
+      _id: this.valueFormUpdate.id,
+      name: this.valueFormUpdate.name,
+      category: this.valueFormUpdate.category,
+      city: this.valueFormUpdate.city,
+      status: this.valueFormUpdate.status,
+      typesOfPower: arrayGuardar,
+      car: this.valueFormUpdate.car,
+      kindOfCar: this.valueFormUpdate.kindOfCar,
+    };
+    this.dataService.putDate(data).subscribe(() => {
       this.getData();
-      alert('dato eliminado');
+      alert('dato editado');
     });
+  }
+
+  // elimina heroe
+  deleteState(item: any) {
+    if (window.confirm("¿Esta seguro que desea aliminar el dato?")) {
+      this.dataService.deleteDate(item).subscribe(() => {
+        this.getData();
+        alert('dato eliminado');
+      });
+    }
   }
 }

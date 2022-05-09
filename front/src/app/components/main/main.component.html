@@ -1,120 +1,13 @@
 <main class="container-fluid">
-  <div class="container py-3 px-5 bg-info">
-    <form #heroesForm="ngForm" (ngSubmit)="saveHeroe()">
-      <div class="row d-flex flex-column">
-        <div class="col-md-12 d-lg-flex">
-          <div class="col-md-6 form-group mb-3 main-container">
-            <span class="px-1 text-white">Nombre:</span>
-            <input
-              type="text"
-              class="form-control"
-              id="hName"
-              [(ngModel)]="heroe.name"
-              name="heroe"
-              required
-              placeholder="Ingrese heroe..."
-            />
-          </div>
-          <div class="col-md-6 form-group mb-3">
-            <span class="px-1 text-white">Categoria:</span>
-            <input
-              type="text"
-              class="form-control"
-              id="hCategory"
-              [(ngModel)]="heroe.category"
-              name="category"
-              placeholder="Ingrese Categoria"
-            />
-          </div>
-        </div>
-        <div class="col-md-12 d-lg-flex">
-          <div class="col-md-6 form-group mb-3">
-            <span class="px-1 text-white">Ciudad:</span>
-            <input
-              type="text"
-              class="form-control"
-              id="hCity"
-              [(ngModel)]="heroe.city"
-              name="city"
-              placeholder="Ingrese ciudad..."
-            />
-          </div>
-          <div class="col-md-6 form-group mb-3">
-            <span class="px-1 text-white">Estado:</span>
-            <input
-              type="text"
-              class="form-control"
-              id="hState"
-              [(ngModel)]="heroe.status"
-              name="state"
-              placeholder="Ingrese estado..."
-            />
-          </div>
-        </div>
-        <div class="col-md-12 d-lg-flex">
-          <div class="col-md-6 form-group mb-3">
-            <span class="px-1 text-white">Tipos de poderes:</span>
-            <div *ngFor="let word2 of words2; let in = index">
-              <!-- <input
-              type="text"
-              class="form-control"
-              id="hSTypesOfPower"
-              [(ngModel)]="heroe.typesOfPower"
-              name="typesOfPower"
-              placeholder="Ingrese tipos de poder..."
-            />-->
-              <input
-                type="text"
-                [(ngModel)]="words2[in].value"
-                name="name{{ in }}"
-                placeholder="Agregue url video"
-                class="form-control numero"
-                #name="ngModel"
-                required
-              />
-            </div>
-            <button type="button" value="Agregar video" (click)="add()">
-              Agregar poder
-            </button>
-          </div>
-          <div class="col-md-6 form-group mb-3">
-            <div class="col-md-12 d-flex">
-              <span class="px-1 text-white">Vehiculo:</span>
-              <div class="form-check borders1 col-3">
-                <input
-                  type="checkbox"
-                  class="form-check"
-                  [(ngModel)]="heroe.car"
-                  name="check"
-                  id="check"
-                />
-              </div>
-            </div>
-            <input
-              type="text"
-              class="form-control"
-              id="hCar"
-              [(ngModel)]="heroe.kindOfCar"
-              name="car"
-              placeholder="Ingrese vehiculo"
-            />
-          </div>
-        </div>
-      </div>
-
-      <div class="col-md-3 btn-save">
-        <button
-          type="submit"
-          class="btn-save-item"
-          [disabled]="!heroesForm.valid"
-        >
-          <span class="iconify mr-2" data-icon="carbon:add" ></span>REGISTRAR
-          HEROE
-        </button>
-      </div>
-    </form>
+  <div class="container">
+    <button
+      class="btn btn-info"
+      data-toggle="modal"
+      data-target="#exampleModal2"
+    >
+      Agregar Heroe
+    </button>
   </div>
-
   <div class="container row align-items-center py-2 mx-auto">
     <div class="col-md-6 d-flex align-items-center pl-5 col-1">
       <span class="iconify" data-icon="bi:list-check"></span>
@@ -128,7 +21,7 @@
           placeholder="Search"
           aria-label="Search"
           aria-describedby="search-addon"
-          [(ngModel)]="searchValue"
+          [(ngModel)]="pokemonSearch" id="filter"
         />
         <span class="input-group-text border-0" id="search-addon">
           <span class="iconify" data-icon="codicon:search"></span>
@@ -137,11 +30,10 @@
     </div>
   </div>
 
-  <div class="container container-table">
+  <div class="container container-table" style="overflow: scroll; width: 100%">
     <table class="table table-bordered">
       <thead>
         <tr>
-          <th scope="col">id</th>
           <th scope="col">Nombre</th>
           <th scope="col">Categoria</th>
           <th scope="col">Ciudad</th>
@@ -149,14 +41,11 @@
           <th scope="col">Tipos de poder</th>
           <th scope="col">Vehiculo</th>
           <th scope="col">Tipo de vehiculo</th>
-          <!-- <th scope="col">Acción</th> -->
+          <th scope="col">Acción</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let item of dataHeroes; let indice = index">
-          <th>
-            {{ indice + 1 }}
-          </th>
+        <tr *ngFor="let item of dataHeroes | filter: pokemonSearch">
           <td>
             {{ item.name }}
           </td>
@@ -170,28 +59,27 @@
             {{ item.status }}
           </td>
           <td>
+            <div *ngFor="let item2 of item.typesOfPower">
+              {{ item2 }}
+            </div>
+          </td>
+          <td>
             {{ item.car }}
           </td>
           <td>
-            {{ item.kinfOfCar }}
+            {{ item.kindOfCar }}
           </td>
-          <!-- <td *ngFor="let dat of item.typesOfPower">
-            {{ dat }}
-          </td> -->
-          <!-- <td *ngFor="let dat of item.heroes">{{ dat.name }}</td>
-          <td *ngFor="let dat of item.heroes">{{ dat.category }}</td>
-          <td *ngFor="let dat of item.heroes">{{ dat.city }}</td>
-          <td *ngFor="let dat of item.heroes">{{ dat.status }}</td>
-          <td *ngFor="let dat of item.heroes">{{ dat.typesOfPower }}</td>
-          <td *ngFor="let dat of item.heroes">{{ dat.car }}</td>
-          <td *ngFor="let dat of item.heroes">{{ dat.kinfOfCar }}</td>
-          <td *ngFor="let dat of item.heroes">{{ dat.kinfOfCar }}</td>-->
-          <td *ngFor="let dat of item.heroes">
-            <button class="btn btn-danger btn-sm" (click)="deleteState(dat)">
-              Eliminar
+          <td>
+            <button class="btn btn-danger btn-sm" (click)="deleteState(item)">
+              <span class="iconify" data-icon="ant-design:delete-filled"></span>
             </button>
-            <button class="btn btn-warning btn-sm" (click)="deleteState(dat)">
-              modificar
+            <button
+              class="btn btn-success btn-sm"
+              data-toggle="modal"
+              data-target="#exampleModal"
+              (click)="selectItemById(item)"
+            >
+              <span class="iconify" data-icon="bxs:edit"></span>
             </button>
           </td>
         </tr>
@@ -199,3 +87,255 @@
     </table>
   </div>
 </main>
+<!-- Modal post -->
+<div
+  class="modal fade"
+  id="exampleModal2"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="exampleModal2"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body bg-dark">
+        <form #heroesForm="ngForm" (ngSubmit)="saveHeroe()">
+          <div class="form-group mb-3 main-container">
+            <span class="px-1 text-white">Nombre:</span>
+            <input
+              type="text"
+              class="form-control"
+              id="hName"
+              [(ngModel)]="heroe.name"
+              name="heroe"
+              required
+              placeholder="Ingrese heroe..."
+            />
+          </div>
+          <div class="form-group mb-3">
+            <span class="px-1 text-white">Categoria:</span>
+            <input
+              type="text"
+              class="form-control"
+              id="hCategory"
+              [(ngModel)]="heroe.category"
+              name="category"
+              placeholder="Ingrese Categoria"
+            />
+          </div>
+          <div class="form-group mb-3">
+            <span class="px-1 text-white">Ciudad:</span>
+            <input
+              type="text"
+              class="form-control"
+              id="hCity"
+              [(ngModel)]="heroe.city"
+              name="city"
+              placeholder="Ingrese ciudad..."
+            />
+          </div>
+          <div class="form-group mb-3">
+            <span class="px-1 text-white">Estado:</span>
+            <input
+              type="text"
+              class="form-control"
+              id="hState"
+              [(ngModel)]="heroe.status"
+              name="state"
+              placeholder="Ingrese estado..."
+            />
+          </div>
+          <div class="form-group mb-3">
+            <span class="px-1 text-white">Tipos de poderes:</span>
+            <div *ngFor="let word2 of words2; let in = index">
+              <input
+                type="text"
+                [(ngModel)]="words2[in].value"
+                name="name{{ in }}"
+                placeholder="Agregue poder {{in + 1}}"
+                class="form-control numero"
+                #name="ngModel"
+                required
+              />
+            </div>
+            <button type="button" value="Agregar video" (click)="add()">
+              Agregar poder
+            </button>
+          </div>
+          <div class="form-group mb-3">
+            <span class="px-1 text-white">Vehiculo:</span>
+            <div class="form-check borders1 col-3">
+              <input
+                type="checkbox"
+                class="form-check"
+                [(ngModel)]="heroe.car"
+                name="check"
+                id="check"
+              />
+            </div>
+          </div>
+          <input
+            type="text"
+            class="form-control"
+            id="hCar"
+            [(ngModel)]="heroe.kindOfCar"
+            name="car"
+            placeholder="Ingrese vehiculo"
+          />
+          <div class="btn-save">
+            <button
+              type="submit"
+              class="btn-save-item"
+              [disabled]="!heroesForm.valid"
+            >
+              <span class="iconify mr-2" data-icon="carbon:add"></span>REGISTRAR
+              HEROE
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- modal upate -->
+<div
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body bg-dark">
+        <form #heroesFormUpdate="ngForm">
+          <input
+            type="hidden"
+            class="form-control"
+            id="hName"
+            [(ngModel)]="valueFormUpdate.id"
+            name="id"
+            required
+            placeholder="Ingrese heroe..."
+          />
+          <div class="form-group mb-3 main-container">
+            <span class="px-1 text-white">Nombre:</span>
+            <input
+              type="text"
+              class="form-control"
+              id="hName"
+              [(ngModel)]="valueFormUpdate.name"
+              name="heroe"
+              required
+              placeholder="Ingrese heroe..."
+            />
+          </div>
+          <div class="form-group mb-3">
+            <span class="px-1 text-white">Categoria:</span>
+            <input
+              type="text"
+              class="form-control"
+              id="hCategory"
+              [(ngModel)]="valueFormUpdate.category"
+              name="category"
+              placeholder="Ingrese Categoria"
+            />
+          </div>
+          <div class="form-group mb-3">
+            <span class="px-1 text-white">Ciudad:</span>
+            <input
+              type="text"
+              class="form-control"
+              id="hCity"
+              [(ngModel)]="valueFormUpdate.city"
+              name="city"
+              placeholder="Ingrese ciudad..."
+            />
+          </div>
+          <div class="form-group mb-3">
+            <span class="px-1 text-white">Estado:</span>
+            <input
+              type="text"
+              class="form-control"
+              id="hState"
+              [(ngModel)]="valueFormUpdate.status"
+              name="state"
+              placeholder="Ingrese estado..."
+            />
+          </div>
+          <div class="form-group mb-3">
+            <span class="px-1 text-white">Tipos de poderes:</span>
+            <div *ngFor="let dat of arrayValue; let i = index">
+              <input
+                type="text"
+                name="name{{ i }}"
+                placeholder="Agregue url video"
+                value="{{ dat }}"
+                class="form-control numero2"
+                required
+              />
+            </div>
+            <div class="col-md-6 form-group mb-3">
+              <div class="col-md-12 d-flex">
+                <span class="px-1 text-white">Vehiculo:</span>
+                <div class="form-check borders1 col-3">
+                  <input
+                    type="checkbox"
+                    class="form-check"
+                    [(ngModel)]="valueFormUpdate.car"
+                    name="check"
+                    id="check"
+                  />
+                </div>
+              </div>
+              <input
+                type="text"
+                class="form-control"
+                id="hCar"
+                [(ngModel)]="valueFormUpdate.kindOfCar"
+                name="car"
+                placeholder="Ingrese vehiculo"
+              />
+            </div>
+          </div>
+          <div class="btn-save">
+            <button
+              type="submit"
+              class="btn-save-item"
+              [disabled]="!heroesFormUpdate.valid"
+              data-dismiss="modal"
+              aria-label="Close"
+              (click)="updateState()"
+            >
+              <span class="iconify mr-2" data-icon="carbon:add"></span>EDITAR
+              HEROE
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
