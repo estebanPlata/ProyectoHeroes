@@ -11,7 +11,7 @@ function getProducts(req,res){
         res.status(200).send(heroes);
     })
 }
-function getProduct(req,res){
+function getProduct(req,res){/* obtener heroe por id */
     let id = req.params.id
     Product.findById(id,(err,pro)=>{
         if(err) return res.status(500).send({message:`Error al realizar la petición en la base de datos: ${err}`});
