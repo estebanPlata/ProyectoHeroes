@@ -48,6 +48,8 @@ function postProduct(req,res){
 function putProduct(req,res){
     let id = req.params.id;
     let upDate = req.body;
+    console.log(upDate);
+
     Product.findByIdAndUpdate(id,upDate,(err,pro)=>{
         if(err) return res.status(500).send({message:`Error al actualizar el heroe: ${err}`});
         res.status(200).send({id:pro});

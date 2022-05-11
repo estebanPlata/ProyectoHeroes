@@ -61,8 +61,7 @@ export class MainComponent implements OnInit {
   // trae todo
   getData() {
     this.dataService.getData().subscribe((res) => {
-      console.log(res);
-
+     /*  console.log(res); */
       this.dataHeroes = res;
     });
   }
