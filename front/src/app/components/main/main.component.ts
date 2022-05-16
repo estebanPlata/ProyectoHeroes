@@ -45,7 +45,11 @@ export class MainComponent implements OnInit {
 
   words2 = [{ value: '' }];
 
+<<<<<<< HEAD
   pokemonSearch: any;
+=======
+  heroeSearch: any;
+>>>>>>> angular
 
   constructor(private dataService: DataService) {}
 
