@@ -46,7 +46,7 @@ export class MainComponent implements OnInit {
   words2 = [{ value: '' }];
 
 <<<<<<< HEAD
-  pokemonSearch: any;
+  heroeSearch: any;
 =======
   heroeSearch: any;
 >>>>>>> angular
