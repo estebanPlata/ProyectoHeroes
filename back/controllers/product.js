@@ -8,10 +8,11 @@ function getProducts(req,res){
     Product.find({},(err,heroes)=>{
         if(err) return res.status(500).send({message: `Error al realizar la petición en la base de datos: ${err}`});
         if(!heroes) return res.status(404).send({message: `Super heroe no encontrado`});
+        console.log(heroes);
         res.status(200).send(heroes);
     })
 }
-function getProduct(req,res){/* obtener heroe por id */
+function getProduct(req,res){
     let id = req.params.id
     Product.findById(id,(err,pro)=>{
         if(err) return res.status(500).send({message:`Error al realizar la petición en la base de datos: ${err}`});
@@ -47,6 +48,8 @@ function postProduct(req,res){
 function putProduct(req,res){
     let id = req.params.id;
     let upDate = req.body;
+    console.log(upDate);
+
     Product.findByIdAndUpdate(id,upDate,(err,pro)=>{
         if(err) return res.status(500).send({message:`Error al actualizar el heroe: ${err}`});
         res.status(200).send({id:pro});
