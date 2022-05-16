@@ -4,12 +4,16 @@ form input{
   background: transparent;
   border-bottom: 2px solid #fff;
   color: #fff;
-  width: 80%;
+  width: 100%;
   font-style:initial;
 }
 .iconify{
   font-weight: bold;
   color: #11806A;
+}
+
+table .iconify{
+  color: #fff !important;
 }
 .btn-save{
   display: flex;
