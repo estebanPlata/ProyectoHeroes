@@ -45,7 +45,7 @@ export class MainComponent implements OnInit {
 
   words2 = [{ value: '' }];
 
-  pokemonSearch: any;
+  heroeSearch: any;
 
   constructor(private dataService: DataService) {}
 

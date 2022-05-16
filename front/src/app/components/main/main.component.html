@@ -22,7 +22,7 @@
           placeholder="Search"
           aria-label="Search"
           aria-describedby="search-addon"
-          [(ngModel)]="pokemonSearch" id="filter"
+          [(ngModel)]="heroeSearch" id="filter"
         />
         <span class="input-group-text border-0" id="search-addon">
           <span class="iconify" data-icon="codicon:search"></span>
@@ -46,7 +46,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let item of dataHeroes | filter: pokemonSearch">
+        <tr *ngFor="let item of dataHeroes | filter: heroeSearch">
           <td>
             {{ item.name }}
           </td>
